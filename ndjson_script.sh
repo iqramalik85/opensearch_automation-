@@ -17,7 +17,7 @@ read -r request_uri
 echo -n "Enter the replacement word for 'Index-pattern': "
 read -r index
 
-mapfile -t client_urls < url_file
+mapfile -t client_urls < domain_file
 
 # Loop through the client_urls and use sed to perform the replacements in the file
 for ((i=1; i<${#client_urls[@]}; i++)); do
