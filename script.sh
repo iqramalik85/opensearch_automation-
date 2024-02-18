@@ -6,7 +6,7 @@ endpoint=$3
 request_uri=$4
 index=$5
 
-mapfile -t client_urls < url_file
+mapfile -t client_urls < domain_file
 
 for ((i=0; i<${#client_urls[@]}; i++)); do
     if grep -q "DOMAIN$i\b" "$filename"; then
