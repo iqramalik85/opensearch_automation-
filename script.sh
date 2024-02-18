@@ -23,8 +23,11 @@ sed -i "s/INDEX/$index/g" "$filename"
 
 git config --global user.email "malikayra85@gmail.com"
 git config --global user.name "iqramalik85"
-git add "$filename"
-git commit -m "Updated $filename with new parameters"
-git push origin main --force 
+git init
+git remote add origin git@github.com/iqramalik85/opensearch_automation-.git
+git branch -M main
+git add .
+git commit -m 'feat: My first feature'
+git push -u origin main
 
 echo "Replacements complete in $filename. Changes pushed to GitHub."
