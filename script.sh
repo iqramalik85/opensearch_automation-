@@ -21,4 +21,10 @@ sed -i "s/ENDPOINT/$endpoint/g" "$filename"
 sed -i "s/REQ_URI$request_uri/g" "$filename"
 sed -i "s/INDEX/$index/g" "$filename"
 
-echo "Replacements complete in $filename."
+git config --global user.email "malikayra85@gmail.com"
+git config --global user.name "iqramalik85"
+git add "$filename"
+git commit -m "Updated $filename with new parameters"
+git push origin master
+
+echo "Replacements complete in $filename. Changes pushed to GitHub."
