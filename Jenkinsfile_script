@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+    
+    parameters {
+        string(name: 'email', defaultValue: 'malikayra85@gmail.com', description: 'malikayra85@gmail.com')
+        string(name: 'username', defaultValue: 'malikayra85@gmail.com', description: 'iqramalik85')
+        string(name: 'filename', defaultValue: 'Templete1', description: 'Enter filename')
+        string(name: 'product', defaultValue: '', description: 'Enter product name')
+        string(name: 'endpoint', defaultValue: '', description: 'Enter endpoint name')
+        string(name: 'request_uri', defaultValue: '', description: 'Enter request URI')
+        string(name: 'index', defaultValue: '', description: 'Enter index pattern')
+        string(name: 'rename', defaultValue: '', description: 'Enter the new file name')
+    }
+    
+    stages {
+        stage('Set Git Config') {
+            steps {
+                script {
+                    // Set Git user email and name
+                    sh "git config --global user.email ${email}"
+                    sh "git config --global user.name ${username}"
+                }
+            }
+        }
+        stage('Fetch File from GitHub') {
+            steps {
+                script {
+                    // Checkout code from your Git repository
+                    checkout([$class: 'GitSCM', branches: [[name: 'main']], 
+                              doGenerateSubmoduleConfigurations: false, 
+                              extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/iqramalik85/opensearch_automation-.git']]])
+                }
+            }
+        }
+        stage('Execute Script') {
+            steps {
+                sh 'chmod +x script.sh'
+                
+                script {
+                    sh "./script.sh ${params.filename} ${params.product} ${params.endpoint} ${params.request_uri} ${params.index}"
+                }
+            }
+        }
+        stage('Copy File Locally') {
+            steps {
+                script {
+                    sh "sudo cp /var/lib/jenkins/workspace/script_pipeline/${params.filename} /home/iqra/jenkins_project"
+                    sh "sudo mv /home/iqra/jenkins_project/${params.filename} /home/iqra/jenkins_project/${params.rename}"
+                    sh "sudo chmod +x /home/iqra/jenkins_project/${params.rename}"
+              
+                }
+            }
+        }
+    }
+}
