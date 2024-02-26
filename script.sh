@@ -18,7 +18,7 @@ done
 
 sed -i "s/PRODUCT/$product/g" "$filename"
 sed -i "s/ENDPOINT/$endpoint/g" "$filename"
-sed -i "s/REQ_URI$request_uri/g" "$filename"
+sed -i "s/REQ_URI/$request_uri/g" "$filename"
 sed -i "s/INDEX/$index/g" "$filename"
 
 echo "Replacements complete in $filename. Changes pushed to GitHub."
