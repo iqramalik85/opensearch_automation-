@@ -44,7 +44,7 @@ pipeline {
         stage('Copy File Locally') {
             steps {
                 script {
-                    sh "sudo cp /var/lib/jenkins/workspace/script_pipeline/${params.filename} /home/iqra/jenkins_project"
+                    sh "sudo cp /var/lib/jenkins/workspace/jenkins-push/${params.filename} /home/iqra/jenkins_project"
                     sh "sudo chmod +x /home/iqra/jenkins_project/${params.rename}"
               
                 }
